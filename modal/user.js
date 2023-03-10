@@ -16,19 +16,19 @@ const userSchema = new mongoose.Schema({
     phone : {
         type : Number,
         minlength : 10,
-        maxlength : 13,
+        maxlength : 15,
         unique : true,
-        required : true
+        // required : true
     },
     email : {
         type : String,
         required : true,
-        unique : true
+        // unique : true
     },
     role : {
         type : String,
-        enum : ['user','admin'],
-        default : 'user'
+        enum : ["user","admin"],
+        default : "user"
     },
     gender : {
         type : String,
@@ -38,12 +38,12 @@ const userSchema = new mongoose.Schema({
 
 })
 
-const User = mongoose.model('users',userSchema);
+const User = mongoose.model('User',userSchema,'User');
 
 const schema = Joi.object({
     name : Joi.string().min(5).max(255).required(),
     password : Joi.string().min(5).max(255).required(),
-    phone : Joi.string().min(11).max(15).required(),
+    phone : Joi.string().min(10).max(15),
     email : Joi.string().min(5).max(255).required().email(),
     role : Joi.string().min(3).max(255),
     gender : Joi.string().min(3).max(255),

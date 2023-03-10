@@ -18,6 +18,6 @@ const paymentSchema = new mongoose.Schema({
 
 })
 
-const User = mongoose.model('users',paymentSchema) 
+const User = mongoose.model('Payment',paymentSchema, 'Payment') 
 
 exports.User = User;

@@ -23,6 +23,6 @@ const newsSchema = new mongoose.Schema({
 
 })
 
-const User = mongoose.model('news',newsSchema) 
+const User = mongoose.model('News',newsSchema, 'News') 
 
 exports.User = User;

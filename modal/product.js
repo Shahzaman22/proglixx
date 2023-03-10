@@ -1,36 +1,50 @@
 const mongoose = require('mongoose')
+const Joi = require('joi')
 const productSchema = new mongoose.Schema({
-    Title :{
+    title :{
         type : String,
         required : true
     },
-    Description : {
+    desc : {
         type : String,
         required : true
     },
-    Img : {
+    img : {
         type : String,
-        required : true
+        // required : true
 
     },
-    Size : {
+    size : {
         type : String,
        
     },
-    Color : {
+    color : {
         type : String,
       
     },
-    Categories : {
-        type : Array,
-    },
-    Price : {
+    categories :  [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
+      }],
+    price : {
         type : Number,
         
     }
 
 })
 
-const Product = mongoose.model('products', productSchema)
+const Product = mongoose.model('Product', productSchema, 'Product')
 
+const schema = Joi.object({
+    title : Joi.string().min(5).max(255).required(),
+    desc : Joi.string().min(5).max(255).required(),
+    img : Joi.string().min(10).max(15),
+    size : Joi.string().min(5).max(255),
+    color : Joi.string().min(3).max(255),
+    categories : Joi.array().min(1).max(1024),
+    price : Joi.string(),
+
+}) 
+
+exports.schema = schema;
 exports.Product = Product;

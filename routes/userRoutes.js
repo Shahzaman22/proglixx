@@ -10,7 +10,8 @@ router.post('/create', userController.createUser)
 router.post('/login', userController.loginUser)
 router.put('/edit', auth , admin, userController.editUser)
 router.delete('/delete', auth , admin, userController.deleteUser)
-router.post('/otp', userController.sendOtpVerificationEmail)
+router.post('/verifyOtpAndCreateUser', userController.verifyOtpAndCreateUser) 
+router.post('/update', auth , userController.updateUser) 
 
 module.exports = router;
 
