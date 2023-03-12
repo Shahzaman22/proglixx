@@ -7,7 +7,7 @@ const auth = require('../middleware/auth')
 
 
 router.post('/create', auth, admin, categoryController.createCategory)
-router.get('/getAllCategories',auth, admin, categoryController.getCategory)
+router.get('/getAllCategories', categoryController.getCategory)
 router.put('/update',auth, admin, categoryController.updateCategory)
 router.delete('/delete',auth, admin, categoryController.deleteCategory)
 

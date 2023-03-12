@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema({
     },
     img : {
         type : String,
-        // required : true
+       
 
     },
     size : {
@@ -42,7 +42,7 @@ const schema = Joi.object({
     size : Joi.string().min(5).max(255),
     color : Joi.string().min(3).max(255),
     categories : Joi.array().min(1).max(1024),
-    price : Joi.string(),
+    price : Joi.number(),
 
 }) 
 

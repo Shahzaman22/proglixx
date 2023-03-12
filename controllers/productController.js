@@ -2,7 +2,7 @@ const {Product , schema} = require('../modal/product')
 
 
 exports.getProducts = async (req,res) => {
-  const product =  await Product.find()
+  const product =  await Product.find().populate('categories')
   res.json(product)
 }
 
@@ -13,6 +13,18 @@ exports.createProducts = async (req,res) => {
     const product =  await new Product (req.body)
     await product.save()
     res.json(product)
+
+    // const product =  await new Product({
+    //   title : req.body.title,
+    //   desc : req.body.desc,
+    //   img : req.file.filename, // This gets the filename of the uploaded image
+    //   size : req.body.size,
+    //   color : req.body.color,
+    //   categories : req.body.categories,
+    //   price : req.body.price
+    // })
+    // await product.save()
+    // res.json(product)
 }
 
 exports.updateProducts = async (req,res) => {

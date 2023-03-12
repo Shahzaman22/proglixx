@@ -5,28 +5,42 @@ const OrderSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product'
     }],
-    quantity: {
+  user: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+  quantity: {
       type: Number,
       required: true
     },
-  categories: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category'
-  }],
   total: {
     type: Number,
-    required: true,
     min: 0
   },
   shippingAddress: {
     type: String,
-    required: true
   },
   date: {
     type: Date,
     default: Date.now
   }
 });
+
+
+// OrderSchema.virtual('productDetails', {
+//   ref: 'Product',
+//   localField: 'products',
+//   foreignField: '_id',
+//   justOne: false,
+//   options: { 
+//     populate: { 
+//       path: 'categories', 
+//       model: 'Category' 
+//     } 
+//   }
+// });
+
+
 
 const Order = mongoose.model('Order', OrderSchema, 'Order');
 
