@@ -28,7 +28,14 @@ try {
   const product = await Product.findById(products)
   if(!product) return res.status(400).send('Product not found')
 
-  const total = product.price * quantity;
+  // let total = "";
+  // total += product.price * quantity
+  
+let total = 0;
+for (let i = 0; i < products.length; i++) {
+  total += product.price * quantity
+  console.log(total);
+}
 
  const order = await new Order ({
     products,

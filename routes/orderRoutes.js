@@ -6,7 +6,7 @@ const orderController = require('../controllers/orderController')
 const auth = require('../middleware/auth')
 
 router.post('/create', auth,  orderController.createOrders)
-router.get('/getOrderList', orderController.getOrders)
+router.get('/getOrderList', auth, orderController.getOrders)
 router.put('/update',  orderController.updateOrders)
 router.delete('/delete', orderController.deleteOrders)
 

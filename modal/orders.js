@@ -1,3 +1,4 @@
+const { string } = require('joi');
 const mongoose = require('mongoose');
 
 const OrderSchema = new mongoose.Schema({
@@ -6,15 +7,16 @@ const OrderSchema = new mongoose.Schema({
       ref: 'Product'
     }],
   user: [{
+
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     }],
   quantity: {
-      type: Number,
+      type: Array,
       required: true
     },
   total: {
-    type: Number,
+    type: String,
     min: 0
   },
   shippingAddress: {
@@ -25,21 +27,6 @@ const OrderSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-
-
-// OrderSchema.virtual('productDetails', {
-//   ref: 'Product',
-//   localField: 'products',
-//   foreignField: '_id',
-//   justOne: false,
-//   options: { 
-//     populate: { 
-//       path: 'categories', 
-//       model: 'Category' 
-//     } 
-//   }
-// });
-
 
 
 const Order = mongoose.model('Order', OrderSchema, 'Order');

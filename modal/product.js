@@ -14,20 +14,13 @@ const productSchema = new mongoose.Schema({
        
 
     },
-    size : {
-        type : String,
-       
-    },
-    color : {
-        type : String,
-      
-    },
     categories :  [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
       }],
     price : {
-        type : Number,
+        type : String,
+        required : true
         
     }
 
@@ -42,7 +35,7 @@ const schema = Joi.object({
     size : Joi.string().min(5).max(255),
     color : Joi.string().min(3).max(255),
     categories : Joi.array().min(1).max(1024),
-    price : Joi.number(),
+    price : Joi.string(),
 
 }) 
 
