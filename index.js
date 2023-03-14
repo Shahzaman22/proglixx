@@ -16,6 +16,7 @@ const users =  require('./routes/userRoutes')
 const products =  require('./routes/productRoutes')
 const categories =  require('./routes/categoryRoutes')
 const orders =  require('./routes/orderRoutes')
+const payments = require('./routes/paymentRoutes')
 
 //DB
 require('./config/db')
@@ -25,6 +26,7 @@ app.use('/api/users', users)
 app.use('/api/products', products)
 app.use('/api/categories', categories)
 app.use('/api/orders', orders)
+app.use('/api/payments', payments)
 
 //PORT
 app.listen(port, console.log(`Connecte to port ${port}`))
