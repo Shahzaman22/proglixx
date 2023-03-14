@@ -1,6 +1,7 @@
 const {Order} = require('../modal/orders');
 const { Product } = require('../modal/product');
 
+
 exports.getOrders = async (req, res) => {
   const { id } = req.query;
   try {
@@ -13,6 +14,11 @@ exports.getOrders = async (req, res) => {
         }
       })
       .populate('user')
+    
+    order.total = order.products.reduce((total, product, index) => {
+      return total + (product.price * order.quantity[index])
+    }, 0);
+    await order.save();
     res.send(order);
   } catch (err) {
     console.error(err);
@@ -28,12 +34,6 @@ try {
   const product = await Product.findById(products)
   if(!product) return res.status(400).send('Product not found')
 
-  
-// let total = 0;
-// for (let i = 0; i < products.length; i++) {
-//   total += product.price * quantity
-//   console.log(total);
-// }
 let total = 0;
 for (let i = 0; i < products.length; i++) {
   const product = await Product.findById(products[i])
@@ -58,6 +58,12 @@ catch (error) {
 }
 
 exports.updateOrders = async (req,res) => {
+
+  const {products } = req.body;
+
+  const product = await Product.findById(products)
+  if(!product) return res.status(400).send('Product not found')
+
    const {id } = req.query;
    const order = await Order.findByIdAndUpdate(id,req.body)
   res.json(order)

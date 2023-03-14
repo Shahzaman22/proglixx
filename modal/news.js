@@ -12,14 +12,6 @@ const newsSchema = new mongoose.Schema({
         type : String,
         required : true,
     },
-    Size : {
-        type : String,
-        default : false
-    },
-    Color : {
-        type : Boolean,
-        default : false
-    },
 
 })
 

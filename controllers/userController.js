@@ -2,7 +2,6 @@ const {sendEmail} = require('../utils/mailer')
 const bcrypt = require('bcrypt')
 const {User, schema} = require('../modal/user')
 const jwt = require('jsonwebtoken')
-// const {generateOtpCode} = require('../utils/otpCode')
 
 exports.getUser = async(req,res) => {
    try {
@@ -13,6 +12,7 @@ exports.getUser = async(req,res) => {
    }
 }
 
+//Generating an OTP 
 exports.createUser = async (req, res) => {
 
   const {error} = schema.validate(req.body)
@@ -65,9 +65,7 @@ exports.loginUser = async (req,res) => {
     if (!isPassword) {
         return res.status(400).send("INVALID PASSWORD")
     }
- 
 
-  
    const token = jwt.sign({userId : user._id, userRole : user.role}, process.env.PRIVATE_KEY)
     return res.json({ token: token, msg: "Login Successfully" })
 
@@ -104,6 +102,7 @@ exports.deleteUser = async (req,res) => {
    res.json({user : dltUser , msg : "Deleted Successfully"})
 }
 
+//Verifying Otp and creating User
 exports.verifyOtpAndCreateUser = async (req, res) => {
   const userOtp = req.body.otp;
 
