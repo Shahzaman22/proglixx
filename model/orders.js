@@ -1,4 +1,3 @@
-const { string } = require('joi');
 const mongoose = require('mongoose');
 
 const OrderSchema = new mongoose.Schema({
@@ -21,6 +20,12 @@ const OrderSchema = new mongoose.Schema({
   },
   shippingAddress: {
     type: String,
+  },
+  // trackingNumberr : {
+  //   type : String
+  // },
+  trackingNumber : {
+    type : String
   },
   date: {
     type: Date,

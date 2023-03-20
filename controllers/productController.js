@@ -1,4 +1,4 @@
-const {Product , schema} = require('../modal/product')
+const {Product , schema} = require('../model/product')
 
 exports.getProducts = async (req,res) => {
   const product =  await Product.find().populate('categories')

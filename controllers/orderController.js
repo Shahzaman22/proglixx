@@ -1,6 +1,7 @@
-const {Order} = require('../modal/orders');
-const { Product } = require('../modal/product');
-
+const {Order} = require('../model/orders');
+const { Product } = require('../model/product');
+const {trackingNumberr} = require('../utils/trackingNumber')
+const EasyPost = require('@easypost/api')
 
 exports.getOrders = async (req, res) => {
   const { id } = req.query;
@@ -28,18 +29,21 @@ exports.getOrders = async (req, res) => {
 
 
 exports.createOrders = async (req,res) => {
-try {
-  const {products , quantity , shippingAddress} = req.body;
+try {  
+  const {products , quantity , shippingAddress } = req.body;
 
   const product = await Product.findById(products)
   if(!product) return res.status(400).send('Product not found')
 
-let total = 0;
-for (let i = 0; i < products.length; i++) {
-  const product = await Product.findById(products[i])
-  if (!product) return res.status(400).send('Product not found')
-  total += product.price * quantity[i]
-}
+  let total = 0;
+  for (let i = 0; i < products.length; i++) {
+    const product = await Product.findById(products[i])
+    if (!product) return res.status(400).send('Product not found')
+    total += product.price * quantity[i]
+  }
+
+  //Tracking Number
+  let testvalue = trackingNumberr();
 
 
  const order = await new Order ({
@@ -47,8 +51,10 @@ for (let i = 0; i < products.length; i++) {
     user : req.user.userId,
     quantity,
     shippingAddress,
-    total
+    total,
+    trackingNumber: testvalue
   });
+
   await order.save()
   res.json(order)
 } 
@@ -74,3 +80,15 @@ exports.deleteOrders = async (req,res) => {
     const order = await Order.findByIdAndDelete(id)
    res.json({order :  order, msg : "Delete successfully"})
  }
+
+exports.trackOrder = async (req,res) => {
+  const order = await Order.find()
+  EasyPost.Tracker.all(order.trackingNumber, (err, trackers) => {
+    if (err) {
+      console.log('Error retrieving tracking information:', err);
+    } else {
+      console.log('Tracking information:', trackers);
+    }
+  });
+  
+}

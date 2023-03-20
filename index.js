@@ -12,11 +12,11 @@ app.use(session({
 }));
 
 
-const users =  require('./routes/userRoutes')
-const products =  require('./routes/productRoutes')
-const categories =  require('./routes/categoryRoutes')
-const orders =  require('./routes/orderRoutes')
-const payments = require('./routes/paymentRoutes')
+const users =  require('./routes/user.routes')
+const products =  require('./routes/product.routes')
+const categories =  require('./routes/category.routes')
+const orders =  require('./routes/order.routes')
+const payments = require('./routes/payment.routes')
 
 //DB
 require('./config/db')

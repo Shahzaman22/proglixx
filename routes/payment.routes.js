@@ -6,5 +6,6 @@ const admin = require('../middleware/admin')
 const auth = require('../middleware/auth')
 
 router.post('/createPayment', auth, paymentController.createPayment)
+router.post('/confirmPayment', auth, paymentController.confirmPayment)
 
 module.exports = router;

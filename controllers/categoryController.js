@@ -1,4 +1,4 @@
-const {Category, schema} = require('../modal/category')
+const {Category, schema} = require('../model/category')
 
 
 exports.getCategory = async (req,res) => {

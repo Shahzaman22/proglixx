@@ -1,7 +1,8 @@
 const {sendEmail} = require('../utils/mailer')
 const bcrypt = require('bcrypt')
-const {User, schema} = require('../modal/user')
+const {User, schema} = require('../model/user')
 const jwt = require('jsonwebtoken')
+// const {generateOtp}  = require('../utils/generateOtp')
 
 exports.getUser = async(req,res) => {
    try {
@@ -35,6 +36,7 @@ exports.createUser = async (req, res) => {
 
     const subject = 'OTP code for registration';
     const text = `Your OTP code is ${otpCode}`;
+
     await sendEmail(email, subject, text);
 
     req.session.otpCode = otpCode;
@@ -71,7 +73,7 @@ exports.loginUser = async (req,res) => {
 
 };
 
-exports.editUser = async (req, res) => {
+exports.updateUser = async (req, res) => {
     try {
       const updatedUser = await User.updateMany(
         { phone: req.body.phone },
@@ -126,7 +128,7 @@ exports.verifyOtpAndCreateUser = async (req, res) => {
   }
 };
 
-exports.updateUser = async (req, res) => {
+exports.editUser = async (req, res) => {
   const user = await User.findByIdAndUpdate(req.user.userId, req.body);
   // console.log(req.user);
   if (!user) return res.status(403).send('User not found')
